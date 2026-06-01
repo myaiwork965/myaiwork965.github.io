@@ -1,0 +1,30 @@
+---
+# Only the main Sass file needs front matter
+---
+
+@import "minimal-mistakes";
+
+/* Reduce overall font size */
+html {
+  font-size: 15px;
+}
+
+/* Smaller page titles */
+.page__title {
+  font-size: 1.8em;
+}
+
+/* Smaller sidebar profile */
+.author__name {
+  font-size: 1.1em;
+}
+
+/* Slightly smaller navigation */
+.greedy-nav {
+  font-size: 0.9em;
+}
+
+/* More compact content */
+.page__content {
+  font-size: 0.95em;
+}
