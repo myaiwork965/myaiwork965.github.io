@@ -4,7 +4,7 @@ title: "About"
 ---
 # About Me
 
-I am a QA Architect exploring , practicing and helping people adopt this rapidly evolving discipline of AI Quality Engineering.
+I am a QA Architect experimenting , practicing and helping people adopt this rapidly evolving discipline of AI Quality Engineering.
 
 My background is in software quality with 18+ years of handson in Funtional Testing Automation Frameowk design, Strategising testing activities, leading it to execution, Advocating Test early, Continuos shift left testing, One click Performance Bencharming Frameworks and establishing quality cetre of  Excellence. 
 I had built Agentic systems that help QA productivity improvement and actively experimenting and building tools and process that help QA teams effiectively adopt to the changing landscape. 
