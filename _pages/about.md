@@ -3,6 +3,42 @@ permalink: /about/
 title: "About"
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+---
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+title: "About"
+permalink: /about/
+author_profile: true
+--------------------
+
+# About Me
+
+I am a QA Architect exploring , practicing and helping people adopt this rapidly evolving discipline of AI Quality Engineering.
+
+My background is in software quality with 18+ years of handson in Funtional Testing Automation Frameowk design, Strategising testing activities, leading it to execution, Advocating Test early, Continuos shift left testing, One click Performance Bencharming Frameworks and establishing quality cetre of  Excellence. 
+I had built Agentic systems that help QA productivity improvement and actively experimenting and building tools and process that help QA teams effiectively adopt to the changing landscape. 
+## Current Areas of Interest
+
+* AI Testing
+* LLM Evaluation
+* Agent Testing Framework
+* Prompt Testing
+* RAG Evaluation
+* Quality Engineering
+
+## What You'll Find Here
+
+This portfolio documents:
+
+* Learning notes
+* Tool Study in AI space
+* Experiments
+* Frameworks
+* Open-source projects
+* AI testing case studies
+* Practical lessons from hands-on work
+
+## Connect
+
+* GitHub: https://github.com/myaiwork965
+* LinkedIn: www.linkedin.com/in/ramarajeswarir
+* Hugging Face:
