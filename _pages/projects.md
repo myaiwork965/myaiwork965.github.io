@@ -6,8 +6,6 @@ author_profile: true
 
 ---
 
-# Projects
-
 This section documents my work in AI Testing, Quality Engineering, and QA Productivity.
 
 
