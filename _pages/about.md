@@ -1,8 +1,7 @@
 ---
 permalink: /about/
-title: "About"
+title: "About Me"
 ---
-# About Me
 
 I am a QA Architect experimenting , practicing and helping people adopt this rapidly evolving discipline of AI Quality Engineering.
 
