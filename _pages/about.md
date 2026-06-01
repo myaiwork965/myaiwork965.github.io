@@ -2,14 +2,6 @@
 permalink: /about/
 title: "About"
 ---
-
----
-
-title: "About"
-permalink: /about/
-author_profile: true
---------------------
-
 # About Me
 
 I am a QA Architect exploring , practicing and helping people adopt this rapidly evolving discipline of AI Quality Engineering.
