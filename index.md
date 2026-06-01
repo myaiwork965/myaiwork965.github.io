@@ -7,10 +7,10 @@ author_profile: true
 ---
 # How do you know an AI system is ready for production?
 
-
-
 Traditional software testing gives us confidence in deterministic systems.
 
 AI systems introduce a different challenge: reliability without predictability.
 
-This site documents my experiments, frameworks, and practical approaches for evaluating quality, reliability, and trustworthiness in AI-powered applications.
+After 18+ years in software quality, automation, performance engineering, and quality strategy, I am exploring how quality engineering principles evolve when systems generate responses instead of executing predefined logic.
+
+This site documents my experiments, learnings, frameworks, and practical approaches for evaluating the quality, reliability, and trustworthiness of AI-powered applications.
