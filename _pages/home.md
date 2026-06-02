@@ -1,24 +1,23 @@
 ---
-
 title: "AI Quality Engineering Portfolio"
 layout: splash
 permalink: /home/
 
 header:
-overlay_color: "#111"
-overlay_filter: 0.5
-caption: "AI Testing • LLM Evaluation • Agent Testing"
-actions:
-- label: "View Projects"
-url: "/projects/"
-- label: "Read Blog"
-url: "/posts/"
+  overlay_image: /assets/images/heroPanelImage.png
+  overlay_color: "#111"
+  overlay_filter: 0.5
+  caption: "AI Testing • LLM Evaluation • Agent Testing"
+  actions:
+    - label: "View Projects"
+      url: "/projects/"
+    - label: "Read Blog"
+      url: "/posts/"
 
 excerpt: >
-Exploring AI Testing, LLM Evaluation, Agentic Systems,
-and Quality Engineering through the lens of 20+ years
-in software quality.
-
+  Exploring AI Testing, LLM Evaluation, Agentic Systems,
+  and Quality Engineering through the lens of 20+ years
+  in software quality.
 ---
 
 ## Building Confidence in AI Systems
