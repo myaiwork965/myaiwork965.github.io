@@ -18,6 +18,41 @@ excerpt: >
   Exploring AI Testing, LLM Evaluation, Agentic Systems,
   and Quality Engineering through the lens of 20+ years
   in software quality.
+feature_row1:
+  image_path: /assets/images/ai-testing-tile.jpg
+  alt: "AI Testing"
+  title: "AI Testing"
+  excerpt: "Prompt testing, LLM evaluation, reliability engineering, and trustworthiness assessment."
+  url: "/projects/"
+  btn_label: "Explore"
+  btn_class: "btn--primary"
+
+  image_path: /assets/images/agentic-workflows-tile.jpg
+  alt: "Agentic Workflows"
+  title: "Agentic Workflows"
+  excerpt: "Experiments with AI-assisted QA, autonomous workflows, and productivity acceleration."
+  url: "/projects/"
+  btn_label: "View"
+  btn_class: "btn--primary"
+
+feature_row2:
+
+  image_path: /assets/images/projects-tile.jpg
+  alt: "Projects"
+  title: "Projects"
+  excerpt: "Frameworks, proof-of-concepts, evaluation tooling, and GitHub repositories."
+  url: "/projects/"
+  btn_label: "Browse"
+  btn_class: "btn--primary"
+
+  image_path: /assets/images/learning-journal-tile.jpg
+  alt: "Learning Journal"
+  title: "Learning Journal"
+  excerpt: "Practical lessons, blog posts, tool reviews, and AI testing insights."
+  url: "/posts/"
+  btn_label: "Read"
+  btn_class: "btn--primary"
+
 ---
 
 ## Building Confidence in AI Systems
