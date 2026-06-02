@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: "AI Practitioners' Portfolio"
+title: "AI Quality Engineering Portfolio"
 name: "Rama "
 description: "QA Architect | AI Testing | LLM Evaluation | Quality Engineering"
 url: "https://myaiwork965.github.io"
