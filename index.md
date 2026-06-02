@@ -20,7 +20,7 @@ excerpt: >
   in software quality.
   
 feature_row1:
-  - image_path: /assets/images/ai-testing-tile_1.jpg
+  - image_path: /assets/images/ai-testing-tile_0.jpg
     alt: "AI Testing"
     title: "AI Testing"
     excerpt: "Prompt testing, LLM evaluation, reliability engineering, and trustworthiness assessment."
