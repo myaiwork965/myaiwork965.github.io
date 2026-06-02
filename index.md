@@ -4,7 +4,7 @@ layout: splash
 header:
   overlay_image: /assets/images/heroPanelImage.png
   overlay_color: "#111"
-  overlay_filter: 0.5
+  overlay_filter: 0.3
   caption: "AI Testing • LLM Evaluation • Agent Testing"
   actions:
     - label: "About Me"
