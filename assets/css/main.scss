@@ -21,10 +21,17 @@ html {
 
 /* Slightly smaller navigation */
 .greedy-nav {
-  font-size: 0.9em;
+  font-size: 0.95em;
 }
 
 /* More compact content */
 .page__content {
   font-size: 0.95em;
+}
+.page__hero--overlay .page__title {
+  font-weight: 700;
+}
+
+.page__hero--overlay .page__lead {
+  font-size: 1.25rem;
 }
