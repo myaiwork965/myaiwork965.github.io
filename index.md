@@ -5,7 +5,7 @@ header:
   overlay_image: /assets/images/heroPanelImage.png
   overlay_color: "#111"
   overlay_filter: 0.3
-  caption: "AI Testing • LLM Evaluation • Agent Systems"
+  caption: "AI Testing • LLM Evaluation • Agentic Systems"
   actions:
     - label: "About Me"
       url: "/about/"
@@ -64,3 +64,9 @@ AI systems introduce a different challenge: reliability without predictability.
 After two decades in software quality, automation, performance engineering, and quality strategy, I am exploring how quality engineering principles evolve when systems generate responses instead of executing predefined logic.
 
 This portfolio documents my experiments, learnings, frameworks, and practical approaches for evaluating the quality, reliability, and trustworthiness of AI-powered applications.
+
+## Areas of Focus
+
+{% include feature_row id="feature_row1" %}
+
+{% include feature_row id="feature_row2" %}
