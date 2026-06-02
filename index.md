@@ -27,15 +27,6 @@ feature_row1:
     url: "/projects/"
     btn_label: "Explore"
     btn_class: "btn--primary"
-  - image_path: /assets/images/agentic-workflows-tile.jpg
-    alt: "Agentic Workflows"
-    title: "Agentic Workflows"
-    excerpt: "Experiments with AI-assisted QA, autonomous workflows, and productivity acceleration."
-    url: "/projects/"
-    btn_label: "View"
-    btn_class: "btn--primary"
-
-feature_row2:
   - image_path: /assets/images/projects-tile.jpg
     alt: "Projects"
     title: "Projects"
@@ -62,8 +53,5 @@ After two decades in software quality, automation, performance engineering, and 
 
 This portfolio documents my experiments, learnings, frameworks, and practical approaches for evaluating the quality, reliability, and trustworthiness of AI-powered applications.
 
-## Areas of Focus
-
 {% include feature_row id="feature_row1" %}
 
-{% include feature_row id="feature_row2" %}
