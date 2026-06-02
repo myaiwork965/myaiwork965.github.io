@@ -48,3 +48,18 @@ text-align: center;
 .layout--splash .feature__item {
 text-align: center;
 }
+/* Center splash hero content */
+
+.page__hero--overlay {
+text-align: center;
+}
+
+.page__hero--overlay .wrapper {
+text-align: center;
+}
+
+.page__hero--overlay .page__title,
+.page__hero--overlay .page__lead,
+.page__hero--overlay .page__hero-caption {
+text-align: center;
+}
