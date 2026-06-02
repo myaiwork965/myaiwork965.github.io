@@ -9,6 +9,8 @@ header:
   overlay_filter: 0.5
   caption: "AI Testing • LLM Evaluation • Agent Testing"
   actions:
+    - label: "About Me"
+      url: "/about/"
     - label: "View Projects"
       url: "/projects/"
     - label: "Read Blog"
