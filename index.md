@@ -1,29 +1,7 @@
 ---
-
-layout: splash
-title: "AI Quality Engineering for the Age of LLMs"
-
-header:
-overlay_color: "#111"
-overlay_filter: "0.5"
-actions:
-- label: "View Projects"
-url: "/projects/"
-- label: "Read Blog"
-url: "/posts/"
-
-excerpt: >
-Exploring AI Testing, LLM Evaluation, Agent Testing, and
-Quality Engineering through the lens of two decades in software quality.
-
+# You don't need to edit this file, it's empty on purpose.
+# Edit theme's home layout instead if you wanna make some changes
+# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+layout: home
+author_profile: true
 ---
-
-## Building Confidence in AI Systems
-
-Traditional software testing gives us confidence in deterministic systems.
-
-AI systems introduce a different challenge: reliability without predictability.
-
-After two decades in software quality, automation, performance engineering, and quality strategy, I am exploring how quality engineering principles evolve when systems generate responses instead of executing predefined logic.
-
-This portfolio documents my experiments, learnings, frameworks, and practical approaches for evaluating the quality, reliability, and trustworthiness of AI-powered applications.
