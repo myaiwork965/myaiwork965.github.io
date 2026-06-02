@@ -1,11 +1,13 @@
 ---
 
+title: "AI Quality Engineering Portfolio"
 layout: splash
-title: "AI Quality Engineering for the Age of LLMs"
+permalink: /home/
 
 header:
 overlay_color: "#111"
-overlay_filter: "0.5"
+overlay_filter: 0.5
+caption: "AI Testing • LLM Evaluation • Agent Testing"
 actions:
 - label: "View Projects"
 url: "/projects/"
@@ -13,8 +15,9 @@ url: "/projects/"
 url: "/posts/"
 
 excerpt: >
-Exploring AI Testing, LLM Evaluation, Agent Testing, and
-Quality Engineering through the lens of two decades in software quality.
+Exploring AI Testing, LLM Evaluation, Agentic Systems,
+and Quality Engineering through the lens of 20+ years
+in software quality.
 
 ---
 
