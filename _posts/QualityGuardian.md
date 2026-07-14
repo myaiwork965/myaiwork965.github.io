@@ -1,28 +1,4 @@
----
-title: "Post: Standard"
-excerpt_separator: "<!--more-->"
-categories:
-  - Blog
-tags:
-  - Post Formats
-  - readability
-  - standard
----
-
----
-title: "Projects"
-permalink: /projects/
-author_profile: true
-toc: true
-toc_label: "On this page"
-toc_icon: "cog"
-toc_sticky: true
----
-
-This section documents my work in AI Testing, Quality Engineering, and QA Productivity.
-
----
----
+```
 title: "The Quality Guardian: Raising an Agent"
 subtitle: "How we chained LangGraph, LangSmith, and Arize Phoenix to stop bugs before they are even written."
 permalink: /projects/quality-guardian/
@@ -31,7 +7,10 @@ toc: true
 toc_label: "In this story"
 toc_icon: "book-open"
 toc_sticky: true
----
+```
+
+
+This section documents my work in AI Testing, Quality Engineering, and QA Productivity.
 
 # The Quality Guardian: Raising an Agent
 > *AI-Powered Requirement Validation for Enterprise QA*
@@ -87,7 +66,7 @@ An agent needs structure, or it will wander off-topic. LangGraph acts as our age
 
     Score: Mathematically, how ready is this requirement for development (0 to 100)?
 
-2. OpenAI / Groq: The Voice & Structure
+## 2. OpenAI / Groq: The Voice & Structure
 
 If LangGraph is the brain's logic, the LLMs (GPT-4o-mini or Llama-3) are the voice. They read the text, recognize the patterns, and express the findings. By wrapping their outputs in Pydantic, we force the AI to return structured, clean data tables instead of unpredictable blocks of text.
 3. LangSmith: The Nervous System (Observability)
@@ -108,7 +87,7 @@ The beauty of this architecture is its efficiency. By chaining these modern, clo
 
     📉 Shift-Left ROI: By catching requirements bugs early, teams can reduce down-stream software rework costs by 30% to 40%.
 
-🛠️ Build Your Own: It’s Simpler Than You Think
+## 🛠️ Build Your Own: It’s Simpler Than You Think
 
 You don't need a supercomputer or a massive budget to build agentic solutions. The modern AI stack is highly accessible. You can build, trace, and run an agent like this locally using nothing but a standard laptop and free developer tiers.
 
