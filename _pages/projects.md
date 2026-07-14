@@ -12,18 +12,16 @@ This section documents my work in AI Testing, Quality Engineering, and QA Produc
 
 ---
 
-## [AI Testing Portfolio (In Progress)](#ai-testing-portfolio) {#ai-testing-portfolio}
+## [AI Testing Portfolio](#ai-testing-portfolio) {#ai-testing-portfolio}
 
-A collection of experiments, frameworks, and learnings related to:
+A collection of experiments, frameworks, design ideas and learnings related to:
 
+* Agent Testing
 * Prompt Testing
 * LLM Evaluation
 * QA Productivity Agents
-* Agent Testing
 * RAG Evaluation
 * AI Risk Assessment
-
-**Status:** Active
 
 ---
 
@@ -31,7 +29,8 @@ A collection of experiments, frameworks, and learnings related to:
 
 Agentic workflows designed to improve QA productivity through automation and AI-assisted testing activities.
 
-[Quality Guardian AI - Complete Journal](/link-to-your-journal-page-or-file/)
+[Create Your First Agent!](/projects/create_your_first_agent/)
+[Quality Guardian AI - Complete Journal](/projects/quality-guardian/)
 
 **Status:** Active
 
