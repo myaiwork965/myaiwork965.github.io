@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-permalink: /projects/
+permalink: /projects/create_your_first_agent/
 author_profile: true
 toc: true
 toc_label: "On this page"
