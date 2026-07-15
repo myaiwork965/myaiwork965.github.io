@@ -30,7 +30,7 @@ Agentic workflows designed to improve QA productivity through automation and AI-
 
 [Create Your First Agent!](/blog/create_your_first_agent/)
 
-[Quality Guardian AI - Complete Journal](/blog/the_quality_guardian_agent//)
+[Quality Guardian AI - Complete Journal](/blog/the_quality_guardian_agent/)
 
 
 
