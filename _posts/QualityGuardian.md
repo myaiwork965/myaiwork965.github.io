@@ -1,13 +1,12 @@
-```
+---
 title: "The Quality Guardian: Raising an Agent"
 subtitle: "How we chained LangGraph, LangSmith, and Arize Phoenix to stop bugs before they are even written."
-permalink: /projects/quality-guardian/
-author_profile: true
-toc: true
-toc_label: "In this story"
-toc_icon: "book-open"
-toc_sticky: true
-```
+categories:
+  - blog
+tags:
+  - Agent
+  - AI in QA
+---
 
 
 This section documents my work in AI Testing, Quality Engineering, and QA Productivity.
@@ -23,6 +22,8 @@ To understand this project, we have to throw out the old idea of AI as a search 
 A traditional LLM is a **calculator for words**. You type a prompt, it predicts the next word, and it stops. But an **Agent** is different. An agent is a word calculator that has been given a job, a toolkit, a memory, and the power to think in a loop. 
 
 Instead of guessing the whole answer in one breath, an agent looks at a task, breaks it into steps, evaluates its own progress, and adjusts its path. It doesn't just write; it *acts*.
+
+New to Agents? Start <cite><a href=https://myaiwork965.github.io/blog/create_your_first_agent/>here</a></cite>
 
 ---
 
