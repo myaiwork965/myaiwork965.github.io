@@ -1,11 +1,11 @@
 ---
-title: "Projects"
-permalink: /_posts/create_your_first_agent/
-author_profile: true
-toc: true
-toc_label: "On this page"
-toc_icon: "cog"
-toc_sticky: true
+title: "Create Your First Agent!"
+categories:
+  - blog
+  - projects
+tags:
+  - Agent
+  - AI in QA
 ---
 
 This section documents my work in AI Testing, Quality Engineering, and QA Productivity.
