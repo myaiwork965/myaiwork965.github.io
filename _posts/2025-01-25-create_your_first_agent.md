@@ -2,7 +2,6 @@
 title: "Create Your First Agent!"
 categories:
   - blog
-  - projects
 tags:
   - Agent
   - AI in QA
