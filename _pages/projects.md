@@ -28,9 +28,9 @@ A collection of experiments, frameworks, design ideas and learnings related to:
 
 Agentic workflows designed to improve QA productivity through automation and AI-assisted testing activities.
 
-[Create Your First Agent!](/_posts/create_your_first_agent/)
+[Create Your First Agent!](/blog/create_your_first_agent/)
 
-[Quality Guardian AI - Complete Journal](/_posts/quality-guardian/)
+[Quality Guardian AI - Complete Journal](/blog/quality-guardian/)
 
 
 
