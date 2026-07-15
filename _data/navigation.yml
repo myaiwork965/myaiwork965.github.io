@@ -1,6 +1,6 @@
 main:
   - title: "Home"
-    url: /Home/
+    url: /home/
   - title: "About Me"
     url: /about/
   - title: "Projects"
