@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATPAR — Case Study</title>
+<meta name="description" content="ATPAR: a one-click performance testing and reporting framework built at Chargebee.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F8F7;
+    --bg-elev: #FFFFFF;
+    --text: #1B2124;
+    --text-muted: #5C6B6E;
+    --border: #E1E6E5;
+    --border-strong: #CBD4D3;
+    --accent: #0B7285;
+    --accent-strong: #095F6E;
+    --accent-soft: #E4F3F4;
+    --shadow: 0 1px 2px rgba(20, 30, 30, 0.04), 0 8px 24px rgba(20, 30, 30, 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161A;
+      --bg-elev: #171F22;
+      --text: #E7EEEE;
+      --text-muted: #93A6A7;
+      --border: #263133;
+      --border-strong: #37474A;
+      --accent: #52D6DE;
+      --accent-strong: #7CE3E9;
+      --accent-soft: #17282A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 56px 20px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+  .mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 58ch;
+    margin: 0 0 28px;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    padding: 18px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .meta-item { font-size: 13px; }
+  .meta-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+  .meta-value { font-weight: 500; }
+
+  section { margin-bottom: 52px; }
+  h2 {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--border);
+  }
+  p { margin: 0 0 14px; }
+  .lede { font-size: 16.5px; }
+
+  .pipeline { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .pipeline li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pipeline li:last-child { border-bottom: none; }
+  .step-num {
+    counter-increment: step;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .step-num::before { content: counter(step); }
+  .step-title { font-weight: 600; margin: 0 0 4px; font-size: 15.5px; }
+  .step-body { color: var(--text-muted); font-size: 14.5px; margin: 0; }
+
+  .diagram-bleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0 20px;
+  }
+  .diagram-inner { max-width: 1280px; margin: 0 auto; }
+  figure.diagram {
+    margin: 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+  .diagram-scroll { overflow-x: auto; }
+  .diagram-scroll svg { display: block; min-width: 980px; width: 100%; height: auto; }
+  .diagram-hint {
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0 0 12px;
+  }
+  @media (max-width: 900px) {
+    .diagram-hint { display: block; }
+  }
+  figcaption {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-top: 14px;
+    margin-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .box-label { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 12.5px; fill: var(--text); }
+  .box-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: var(--text-muted); }
+  .lane-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; fill: var(--text-muted); text-transform: uppercase; }
+  .node-rect { fill: var(--bg-elev); stroke: var(--border-strong); stroke-width: 1.4; }
+  .node-rect.accented { stroke: var(--accent); }
+  .flow-line { fill: none; stroke: var(--border-strong); stroke-width: 1.6; }
+  .icon-stroke { fill: none; stroke: var(--accent-strong); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-fill { fill: var(--accent-strong); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .stat-tile {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px;
+  }
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .callout p { margin: 0; font-size: 14.5px; color: var(--text); }
+
+  .usecase-grid { grid-template-columns: repeat(3, 1fr); }
+  .usecase-tile .usecase-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .usecase-tile .usecase-body { font-size: 13.5px; color: var(--text-muted); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text-muted);
+  }
+
+  footer {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  a { color: var(--accent-strong); }
+
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: 1fr; }
+    body { padding: 40px 16px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="eyebrow">Case Study · Performance Engineering</p>
+  <h1>ATPAR</h1>
+  <p class="subtitle">Automated Test of Performance And Reporting — a one-click performance testing framework built to replace days of manual load-test setup with a single run.</p>
+
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Architect &amp; Lead Engineer</span></div>
+    <div class="meta-item"><span class="meta-label">Context</span><span class="meta-value">Staff SDET, Chargebee</span></div>
+    <div class="meta-item"><span class="meta-label">Domain</span><span class="meta-value">Subscription billing APIs</span></div>
+    <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Internal framework</span></div>
+  </div>
+
+  <section>
+    <h2>The problem</h2>
+    <p class="lede">Performance testing at scale meant coordinating infrastructure provisioning, realistic data setup, load generation, and metrics collection across five separate tools — by hand, before every release.</p>
+    <p>That process took days, depended on whoever ran it, and produced results that were hard to compare from one release to the next. A load run itself might finish in 10 minutes — but manually correlating infra, trace, and log signals afterward to explain <em>why</em> an API got slower routinely took up to three days, with no consistent, one-view answer along the way.</p>
+  </section>
+
+  <section>
+    <h2>Architecture &amp; flow</h2>
+    <div class="diagram-bleed"><div class="diagram-inner">
+    <figure class="diagram">
+      <p class="diagram-hint">↔ swipe to see the full diagram</p>
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 1400 420" role="img" aria-label="Flow diagram: Provision Infra fans out to Data Snapshot Check and Dynamic Load Config, which converge into Load Simulation with JMeter. Load Simulation fans out to parallel collection from AWS, Datadog, and Splunk, converging into Consolidation with JTL Reporter, then Benchmark Comparison, which fans out to a Dashboard and an Emailable Report.">
+          <defs>
+            <marker id="arrow-atpar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--border-strong)"></path>
+            </marker>
+
+            <!-- Icon: server / infra -->
+            <g id="icon-server">
+              <rect x="1" y="2" width="18" height="5" rx="1.2" class="icon-stroke"></rect>
+              <rect x="1" y="9" width="18" height="5" rx="1.2" class="icon-stroke"></rect>
+              <rect x="1" y="16" width="18" height="5" rx="1.2" class="icon-stroke"></rect>
+              <circle cx="5" cy="4.5" r="0.9" class="icon-fill"></circle>
+              <circle cx="5" cy="11.5" r="0.9" class="icon-fill"></circle>
+              <circle cx="5" cy="18.5" r="0.9" class="icon-fill"></circle>
+            </g>
+            <!-- Icon: database / snapshot -->
+            <g id="icon-db">
+              <ellipse cx="10" cy="4.5" rx="8" ry="3" class="icon-stroke"></ellipse>
+              <path d="M2,4.5 V16 C2,17.7 5.6,19 10,19 C14.4,19 18,17.7 18,16 V4.5" class="icon-stroke"></path>
+              <path d="M2,10.3 C2,12 5.6,13.3 10,13.3 C14.4,13.3 18,12 18,10.3" class="icon-stroke"></path>
+            </g>
+            <!-- Icon: bolt / load -->
+            <g id="icon-bolt">
+              <polygon points="11,1 3,12 9,12 8,19 17,7 10.5,7" class="icon-fill"></polygon>
+            </g>
+            <!-- Icon: sliders / dynamic config -->
+            <g id="icon-sliders">
+              <line x1="4" y1="1.5" x2="4" y2="18.5" class="icon-stroke"></line>
+              <line x1="10" y1="1.5" x2="10" y2="18.5" class="icon-stroke"></line>
+              <line x1="16" y1="1.5" x2="16" y2="18.5" class="icon-stroke"></line>
+              <circle cx="4" cy="6.5" r="2.1" class="icon-fill"></circle>
+              <circle cx="10" cy="13.5" r="2.1" class="icon-fill"></circle>
+              <circle cx="16" cy="9" r="2.1" class="icon-fill"></circle>
+            </g>
+            <!-- Icon: cloud (AWS) -->
+            <g id="icon-cloud">
+              <path d="M5.5,16 C2.5,16 1,14 1,12 C1,10 2.7,8.4 5,8.1 C5.6,5.2 8.2,3 11.2,3 C14.4,3 17,5.4 17.3,8.5 C19,8.9 20,10.3 20,12 C20,14.2 18.2,16 16,16 Z" class="icon-stroke"></path>
+            </g>
+            <!-- Icon: pulse (Datadog) -->
+            <g id="icon-pulse">
+              <polyline points="1,11 6,11 8,4 12,18 14,11 20,11" class="icon-stroke"></polyline>
+            </g>
+            <!-- Icon: logs (Splunk) -->
+            <g id="icon-logs">
+              <rect x="1.5" y="2" width="17" height="17" rx="1.5" class="icon-stroke"></rect>
+              <line x1="4.5" y1="7" x2="15.5" y2="7" class="icon-stroke"></line>
+              <line x1="4.5" y1="10.5" x2="15.5" y2="10.5" class="icon-stroke"></line>
+              <line x1="4.5" y1="14" x2="11" y2="14" class="icon-stroke"></line>
+            </g>
+            <!-- Icon: merge / consolidate -->
+            <g id="icon-merge">
+              <path d="M2,3 L2,7 C2,9 4,10 6,10 L14,10 C16,10 18,11 18,13 L18,18" class="icon-stroke"></path>
+              <path d="M2,18 L2,14 C2,12 4,11 6,11" class="icon-stroke"></path>
+              <circle cx="18" cy="18" r="1.6" class="icon-fill"></circle>
+            </g>
+            <!-- Icon: target / benchmark -->
+            <g id="icon-target">
+              <circle cx="10" cy="10" r="8.5" class="icon-stroke"></circle>
+              <circle cx="10" cy="10" r="5" class="icon-stroke"></circle>
+              <circle cx="10" cy="10" r="1.6" class="icon-fill"></circle>
+            </g>
+            <!-- Icon: dashboard grid -->
+            <g id="icon-grid">
+              <rect x="1.5" y="1.5" width="7.5" height="7.5" rx="1" class="icon-stroke"></rect>
+              <rect x="11" y="1.5" width="7.5" height="7.5" rx="1" class="icon-stroke"></rect>
+              <rect x="1.5" y="11" width="7.5" height="7.5" rx="1" class="icon-stroke"></rect>
+              <rect x="11" y="11" width="7.5" height="7.5" rx="1" class="icon-stroke"></rect>
+            </g>
+            <!-- Icon: envelope -->
+            <g id="icon-mail">
+              <rect x="1.5" y="4" width="17" height="12.5" rx="1.5" class="icon-stroke"></rect>
+              <polyline points="2,5 10,12 18,5" class="icon-stroke"></polyline>
+            </g>
+          </defs>
+
+          <!-- lane labels -->
+          <text x="80" y="30" text-anchor="middle" class="lane-label">setup</text>
+          <text x="280" y="30" text-anchor="middle" class="lane-label">configure</text>
+          <text x="680" y="30" text-anchor="middle" class="lane-label">parallel collection</text>
+          <text x="1110" y="30" text-anchor="middle" class="lane-label">reporting</text>
+
+          <!-- fan-out: stage1 -> data snapshot + dynamic load config -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M150,210 H180 V141 H196"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M150,210 H180 V279 H196"></path>
+
+          <!-- converge: data snapshot + dynamic load config -> load simulation -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M360,141 H380 V210 H386"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M360,279 H380 V210 H386"></path>
+
+          <!-- fan-out: stage3 -> 3 collectors -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M540,210 H570 V92 H596"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M540,210 H596"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M540,210 H570 V328 H596"></path>
+
+          <!-- converge: 3 collectors -> consolidation -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M760,92 H790 V210 H816"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M760,210 H816"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M760,328 H790 V210 H816"></path>
+
+          <!-- consolidation -> benchmark -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M980,210 H1026"></path>
+
+          <!-- fan-out: benchmark -> dashboard + email -->
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M1190,210 H1200 V120 H1206"></path>
+          <path class="flow-line" marker-end="url(#arrow-atpar)" d="M1190,210 H1200 V300 H1206"></path>
+
+          <!-- Stage 1: Provision Infra -->
+          <rect class="node-rect" x="10" y="175" width="140" height="70" rx="10"></rect>
+          <use href="#icon-server" x="20" y="185" width="20" height="20"></use>
+          <text x="80" y="222" text-anchor="middle" class="box-label">Provision Infra</text>
+          <text x="80" y="236" text-anchor="middle" class="box-sub">capacity check</text>
+
+          <!-- Stage 2a: Data Snapshot -->
+          <rect class="node-rect" x="200" y="110" width="160" height="62" rx="10"></rect>
+          <use href="#icon-db" x="212" y="119" width="20" height="20"></use>
+          <text x="280" y="154" text-anchor="middle" class="box-label">Data Snapshot</text>
+          <text x="280" y="167" text-anchor="middle" class="box-sub">match customer load</text>
+
+          <!-- Stage 2b: Dynamic Load Config -->
+          <rect class="node-rect" x="200" y="248" width="160" height="62" rx="10"></rect>
+          <use href="#icon-sliders" x="212" y="257" width="20" height="20"></use>
+          <text x="280" y="292" text-anchor="middle" class="box-label">Dynamic Load Config</text>
+          <text x="280" y="305" text-anchor="middle" class="box-sub">attached to JMeter plan</text>
+
+          <!-- Stage 3: Load Simulation -->
+          <rect class="node-rect accented" x="390" y="175" width="150" height="70" rx="10"></rect>
+          <use href="#icon-bolt" x="400" y="185" width="20" height="20"></use>
+          <text x="465" y="222" text-anchor="middle" class="box-label">Load Simulation</text>
+          <text x="465" y="236" text-anchor="middle" class="box-sub">JMeter test plans</text>
+
+          <!-- Collector: AWS -->
+          <rect class="node-rect" x="600" y="60" width="160" height="64" rx="10"></rect>
+          <use href="#icon-cloud" x="612" y="70" width="20" height="20"></use>
+          <text x="680" y="104" text-anchor="middle" class="box-label">AWS Metrics</text>
+          <text x="680" y="117" text-anchor="middle" class="box-sub">infra / compute</text>
+
+          <!-- Collector: Datadog -->
+          <rect class="node-rect" x="600" y="178" width="160" height="64" rx="10"></rect>
+          <use href="#icon-pulse" x="612" y="188" width="20" height="20"></use>
+          <text x="680" y="222" text-anchor="middle" class="box-label">Datadog Traces</text>
+          <text x="680" y="235" text-anchor="middle" class="box-sub">perf metrics</text>
+
+          <!-- Collector: Splunk -->
+          <rect class="node-rect" x="600" y="296" width="160" height="64" rx="10"></rect>
+          <use href="#icon-logs" x="612" y="306" width="20" height="20"></use>
+          <text x="680" y="340" text-anchor="middle" class="box-label">Splunk Logs</text>
+          <text x="680" y="353" text-anchor="middle" class="box-sub">application logs</text>
+
+          <!-- Consolidation -->
+          <rect class="node-rect accented" x="820" y="175" width="160" height="70" rx="10"></rect>
+          <use href="#icon-merge" x="832" y="185" width="20" height="20"></use>
+          <text x="900" y="222" text-anchor="middle" class="box-label">Consolidation</text>
+          <text x="900" y="236" text-anchor="middle" class="box-sub">+ JTL reporter</text>
+
+          <!-- Benchmark -->
+          <rect class="node-rect" x="1030" y="175" width="160" height="70" rx="10"></rect>
+          <use href="#icon-target" x="1042" y="185" width="20" height="20"></use>
+          <text x="1110" y="222" text-anchor="middle" class="box-label">Benchmark Compare</text>
+          <text x="1110" y="236" text-anchor="middle" class="box-sub">vs. monthly baseline</text>
+
+          <!-- Dashboard -->
+          <rect class="node-rect" x="1210" y="90" width="150" height="60" rx="10"></rect>
+          <use href="#icon-grid" x="1222" y="99" width="20" height="20"></use>
+          <text x="1285" y="132" text-anchor="middle" class="box-label">Dashboard</text>
+
+          <!-- Email -->
+          <rect class="node-rect" x="1210" y="270" width="150" height="60" rx="10"></rect>
+          <use href="#icon-mail" x="1222" y="279" width="20" height="20"></use>
+          <text x="1285" y="312" text-anchor="middle" class="box-label">Email Report</text>
+        </svg>
+      </div>
+      <figcaption>ATPAR provisions infra, then in parallel validates a customer-matched data snapshot and dynamically computes the load profile attached to the JMeter test plan. It drives load with JMeter, collects infra, trace, and log signals from AWS, Datadog, and Splunk in parallel, then consolidates, benchmarks, and reports the result automatically.</figcaption>
+    </figure>
+    </div></div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="pipeline">
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Provisions &amp; verifies infra</p>
+          <p class="step-body">Spins up load-test infrastructure on demand and checks it against the compute capacity the run needs — before a single request fires.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Prepares representative data</p>
+          <p class="step-body">Verifies — and restores where needed — data snapshots sized and shaped to match real customer load profiles, so results reflect production reality, not synthetic edge cases.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Configures load dynamically</p>
+          <p class="step-body">Computes the load profile — concurrency, ramp-up, and throughput targets — for the release under test and attaches it directly to the JMeter test plan, so no test script is hand-edited between runs.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Simulates load</p>
+          <p class="step-body">Drives traffic against the target APIs using the JMeter test plan, now carrying its dynamically attached load configuration.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Collects signals in parallel</p>
+          <p class="step-body">While the test runs, ATPAR pulls infrastructure metrics from AWS, distributed traces and performance metrics from Datadog, and application logs from Splunk — all three at once.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Consolidates &amp; reports</p>
+          <p class="step-body">Merges all three signal streams with JMeter's JTL output into one dataset, surfaced through a single dashboard.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Benchmarks automatically</p>
+          <p class="step-body">Compares each API's performance against its trailing monthly benchmark and flags deviations along with likely causes.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Notifies stakeholders</p>
+          <p class="step-body">Emails a summary report to stakeholders the moment the test completes — no one has to go looking for results.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Impact</h2>
+    <div class="stats">
+      <div class="stat-tile">
+        <span class="stat-num">5 → 1</span>
+        <span class="stat-label">Tools coordinated manually, replaced by one run</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-num">3 days → 10 min</span>
+        <span class="stat-label">Time to go from raw signals to a "why did it slow down" answer — now the same length as the test run itself</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-num">Monthly</span>
+        <span class="stat-label">Rolling benchmark every API is automatically checked against</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where it plugs in</h2>
+    <div class="stats usecase-grid">
+      <div class="stat-tile usecase-tile">
+        <span class="usecase-title">Live API SLA baselines</span>
+        <span class="usecase-body">Every API's performance baseline stays current against real load, instead of a one-off benchmark that quietly goes stale.</span>
+      </div>
+      <div class="stat-tile usecase-tile">
+        <span class="usecase-title">Nightly regression gating</span>
+        <span class="usecase-body">Nightly regression runs are checked against the rolling baseline automatically, before anyone has to go looking for a slowdown.</span>
+      </div>
+      <div class="stat-tile usecase-tile">
+        <span class="usecase-title">Feature-branch merge gating</span>
+        <span class="usecase-body">A branch that regresses an API's performance beyond threshold is flagged at merge time, not discovered after release.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tools &amp; signals</h2>
+    <div class="tags">
+      <span class="tag">JMeter</span>
+      <span class="tag">AWS</span>
+      <span class="tag">Datadog</span>
+      <span class="tag">Splunk</span>
+      <span class="tag">JTL Reporter</span>
+      <span class="tag">Automated Benchmarking</span>
+      <span class="tag">One-click Orchestration</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="callout">
+      <span class="callout-label">A note on code</span>
+      <p>ATPAR was built as proprietary infrastructure for Chargebee. This case study describes the architecture, the workflow, and my role designing and building it end-to-end — the implementation itself isn't something I'm able to share.</p>
+    </div>
+  </section>
+
+  <footer>
+    Case study · ATPAR — one-click performance testing &amp; reporting
+  </footer>
+
+</div>
+</body>
+</html>
