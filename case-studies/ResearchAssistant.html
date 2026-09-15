@@ -1,145 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Assistant — Case Study</title>
+<meta name="description" content="Research Assistant: an agentic market & content analyst that turns weekly Agentic AI trend research into ready-to-use training content.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F8F7;
+    --bg-elev: #FFFFFF;
+    --text: #1B2124;
+    --text-muted: #5C6B6E;
+    --border: #E1E6E5;
+    --border-strong: #CBD4D3;
+    --accent: #0B7285;
+    --accent-strong: #095F6E;
+    --accent-soft: #E4F3F4;
+    --shadow: 0 1px 2px rgba(20, 30, 30, 0.04), 0 8px 24px rgba(20, 30, 30, 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161A;
+      --bg-elev: #171F22;
+      --text: #E7EEEE;
+      --text-muted: #93A6A7;
+      --border: #263133;
+      --border-strong: #37474A;
+      --accent: #52D6DE;
+      --accent-strong: #7CE3E9;
+      --accent-soft: #17282A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
 
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 56px 20px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 58ch;
+    margin: 0 0 28px;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    padding: 18px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .meta-item { font-size: 13px; }
+  .meta-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+  .meta-value { font-weight: 500; }
 
-# Research Assistant - Agentic Market & Content Analyst
+  section { margin-bottom: 52px; }
+  h2 {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::after { content: ""; height: 1px; flex: 1; background: var(--border); }
+  p { margin: 0 0 14px; }
+  .lede { font-size: 16.5px; }
 
-**Weekly Agentic AI trend research, drafted into ready-to-use content, with
-a human always in control of what gets published.**
+  .callout-group { display: grid; gap: 14px; margin-top: 20px; }
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .callout p { margin: 0; font-size: 14.5px; color: var(--text); }
 
-Built on the [Strands Agents SDK](https://strandsagents.com) for a real
-solopreneur problem: staying current in a fast-moving field while also
-producing the training content that field demands — without spending every
-week re-doing the same manual research from scratch.
+  .pipeline { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .pipeline li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pipeline li:last-child { border-bottom: none; }
+  .step-num {
+    counter-increment: step;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .step-num::before { content: counter(step); }
+  .step-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .step-title { font-weight: 600; margin: 0; font-size: 15.5px; }
+  .step-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+  }
+  .step-tag.agent { color: var(--accent-strong); border-color: var(--accent); background: var(--accent-soft); }
+  .step-body { color: var(--text-muted); font-size: 14.5px; margin: 0; }
 
-<!--
-  PLACEHOLDER: clickable video thumbnail. Replace YOUTUBE_ID and
-  THUMBNAIL_URL once the video is uploaded and public. Standard trick:
-  a linked image that looks like a play button, since GitHub won't embed
-  a real YouTube player in a README.
--->
-[![Watch the 3-minute demo]
-https://youtu.be/8uAp2hFxO6g
+  .feature-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .feature-list li {
+    padding-left: 20px;
+    position: relative;
+    font-size: 14.5px;
+    color: var(--text);
+  }
+  .feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .feature-list strong { font-weight: 600; }
 
----
+  table.feature-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .feature-table th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 12px 10px 0;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .feature-table td {
+    padding: 12px 12px 12px 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+  .feature-table td:first-child { font-weight: 600; white-space: nowrap; }
+  .feature-table td.muted, .feature-table tr td:last-child { color: var(--text-muted); }
 
-## The problem
+  pre.codeblock {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    box-shadow: var(--shadow);
+  }
+  pre.codeblock code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
 
-Anyone teaching or working in a fast-moving field faces the same weekly
-loop: check job boards, skim GitHub trending, read a stack of newsletters,
-try to tell real signal from noise — every week, from scratch, with no
-memory of what was already checked last time.
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text-muted);
+  }
 
-**Who this is for**: independent AI trainers, educators, and consultants
-who need two different things from the same research — material to keep
-their own skills current, and concrete content to teach with — but don't
-have a research team to produce either.
+  footer {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  a { color: var(--accent-strong); }
 
-**Why it matters**: most research tools hand you information. This hands
-you a drafted LinkedIn post and outlined training modules — the gap between
-"here's what's happening" and "here's something you can publish or teach
-this week" is exactly what it closes.
+  @media (max-width: 560px) {
+    body { padding: 40px 16px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
 
-## See it run
+  <p class="eyebrow">Case Study · Agentic AI / Market &amp; Content Research</p>
+  <h1>Research Assistant</h1>
+  <p class="subtitle">Weekly Agentic AI trend research, drafted into ready-to-use content, with a human always in control of what gets published.</p>
 
-<!--
-  PLACEHOLDER: record a short (10-20s) terminal session showing a real run
-  — the tool-call trace, the classified findings, the LinkedIn draft
-  appearing — and convert it to a GIF (e.g. with `asciinema` + `agg`, or
-  a screen recording converted via ffmpeg/gifski). Drop the file at
-  docs/demo.gif in the repo and this will render inline and autoplay.
--->
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Builder &amp; Architect</span></div>
+    <div class="meta-item"><span class="meta-label">Context</span><span class="meta-value">Solopreneur · Hackathon submission</span></div>
+    <div class="meta-item"><span class="meta-label">Domain</span><span class="meta-value">Agentic AI market &amp; content research</span></div>
+    <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">Personal automation tool</span></div>
+  </div>
 
-<!--
-  PLACEHOLDER: a phone screenshot of the Telegram digest arriving, and/or
-  the GitHub Actions run summary showing both workflows. Static images —
-  drag into the GitHub web editor or reference a file in docs/.
--->
-![Telegram digest screen 1](telegram_screen1.png)
-![Telegram digest screen 2](telegram_screen2.png)
+  <section>
+    <h2>The problem</h2>
+    <p class="lede">Anyone teaching or working in a fast-moving field faces the same weekly loop: check job boards, skim GitHub trending, read a stack of newsletters, try to tell real signal from noise — every week, from scratch, with no memory of what was already checked last time.</p>
+    <div class="callout-group">
+      <div class="callout">
+        <span class="callout-label">Who this is for</span>
+        <p>Independent AI trainers, educators, and consultants who need two different things from the same research — material to keep their own skills current, and concrete content to teach with — but don't have a research team to produce either.</p>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Why it matters</span>
+        <p>Most research tools hand you information. This hands you a drafted LinkedIn post and outlined training modules — the gap between "here's what's happening" and "here's something you can publish or teach this week" is exactly what it closes.</p>
+      </div>
+    </div>
+  </section>
 
-| Personal digest, delivered automatically | Publishing is a separate, manual step |
-|---|---|
+  <section>
+    <h2>How it works</h2>
+    <ol class="pipeline">
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Weekly trigger</p><span class="step-tag">Automation</span></div>
+          <p class="step-body">GitHub Actions fires the workflow on a schedule, or on demand.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Orchestrator agent</p><span class="step-tag agent">Strands agent</span></div>
+          <p class="step-body">Delegates to specialized sub-agents and synthesizes what comes back.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Job market &amp; tooling trend sub-agents</p><span class="step-tag agent">Strands agents · parallel</span></div>
+          <p class="step-body">Run in parallel — one researches hiring trends via search with a steering cap, the other tracks tooling trends via GitHub and RSS with the same steering guardrail.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Formatter agent</p><span class="step-tag agent">Strands agent · tool-less</span></div>
+          <p class="step-body">Turns both sub-agents' findings into one structured digest — no tools attached, so there's no ambiguity about what it's allowed to do.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Digest archived &amp; pushed</p><span class="step-tag">Automation</span></div>
+          <p class="step-body">Saved to a digest archive, and pushed automatically and privately to the trainer via Telegram.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Trainer reviews</p><span class="step-tag">Human step</span></div>
+          <p class="step-body">Edits or approves the drafted LinkedIn post before anything goes further.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Manual publish workflow</p><span class="step-tag">Automation · human-triggered</span></div>
+          <p class="step-body">A separate GitHub Actions workflow, triggered only by the trainer, is what actually publishes.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <div class="step-title-row"><p class="step-title">Student Telegram channel</p><span class="step-tag">Delivery</span></div>
+          <p class="step-body">Nothing reaches students without that manual trigger — the personal digest and the published content are deliberately separate paths.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
 
+  <section>
+    <h2>What it actually does</h2>
+    <ul class="feature-list">
+      <li><strong>Researches</strong> hiring trends and tooling trends in parallel, via two specialized Strands sub-agents delegated to by an orchestrator.</li>
+      <li><strong>Remembers</strong> what it already reported — a dedupe memory layer means a weekly run surfaces only what's new, not the same items re-summarized.</li>
+      <li><strong>Classifies</strong> every finding by signal strength — "strong" if corroborated across multiple sources, "early" if from just one — so it's clear what to teach confidently versus what to just watch.</li>
+      <li><strong>Drafts content directly</strong>: a ready-to-edit LinkedIn post from the strongest finding, and 1–3 training-module ideas with learning objectives and key points.</li>
+      <li><strong>Keeps a human in control of publishing</strong>: the digest reaches the trainer automatically and privately every week. Nothing reaches a student-facing channel without a separate, manually-triggered action.</li>
+    </ul>
+  </section>
 
-## How it works
+  <section>
+    <h2>Strands features used — and why each is there</h2>
+    <p style="font-size:13.5px;color:var(--text-muted);margin-top:-8px;">Every one of these exists because a real bug or design need surfaced it during development, not as a checklist.</p>
+    <table class="feature-table">
+      <tr><th>Feature</th><th>Why it's here</th></tr>
+      <tr><td>Multi-agent orchestration<br><span class="muted">(Agent-as-Tool)</span></td><td>Delegation to specialized sub-agents, each with a narrow scope, instead of one agent doing everything.</td></tr>
+      <tr><td>Steering<br><span class="muted">vended_plugins.steering</span></td><td>A real per-tool call budget with feedback the model can act on — replaced a hard-cutoff workaround after a sub-agent got stuck looping on a tool that couldn't do what it was trying to do.</td></tr>
+      <tr><td>Structured output<br><span class="muted">Pydantic</span></td><td>The digest is a typed schema, not prose the model is asked to format.</td></tr>
+      <tr><td>Tool-less formatter agent</td><td><code class="mono">structured_output()</code> internally disallows further tool calls — an agent that still has tools attached can try to use them anyway, which some model backends reject outright. A dedicated tool-less agent makes that failure structurally impossible.</td></tr>
+      <tr><td>ModelRetryStrategy</td><td>Real throttling protection, restored after being accidentally misconfigured while chasing an unrelated (tool-execution, not throttling) bug.</td></tr>
+      <tr><td>Native observability<br><span class="muted">StrandsTelemetry</span></td><td>OpenTelemetry traces of every model and tool call, used throughout development to actually see the tool-call loop and delegation decisions.</td></tr>
+    </table>
+  </section>
 
-```mermaid
-flowchart TD
-    A["Weekly trigger<br/>GitHub Actions: schedule or manual"] --> B["Orchestrator agent<br/>Strands: delegates & synthesizes"]
-    B --> C["Job market sub-agent<br/>Search + steering cap"]
-    B --> D["Tooling trend sub-agent<br/>GitHub + RSS + steering"]
-    C --> E["Formatter agent<br/>Tool-less: structured digest"]
-    D --> E
-    E --> F["Digest archive<br/>Saved to digests/ folder"]
-    E --> G["Personal digest<br/>Telegram push, automatic"]
-    G --> H["Trainer reviews<br/>Edit or approve LinkedIn draft"]
-    H --> I["Manual publish workflow<br/>GitHub Actions: human-triggered"]
-    I --> J["Student Telegram channel"]
+  <section>
+    <h2>Tech stack</h2>
+    <div class="tags">
+      <span class="tag">Strands Agents SDK (Python)</span>
+      <span class="tag">Groq</span>
+      <span class="tag">AWS Bedrock (optional)</span>
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">Telegram Bot API</span>
+      <span class="tag">DuckDuckGo Search</span>
+      <span class="tag">GitHub Search API</span>
+      <span class="tag">RSS Feeds</span>
+    </div>
+  </section>
 
-    style A fill:#F1EFE8,stroke:#5F5E5A
-    style B fill:#EEEDFE,stroke:#534AB7
-    style C fill:#EEEDFE,stroke:#534AB7
-    style D fill:#EEEDFE,stroke:#534AB7
-    style E fill:#EEEDFE,stroke:#534AB7
-    style F fill:#F1EFE8,stroke:#5F5E5A
-    style G fill:#FAECE7,stroke:#993C1D
-    style H fill:#FBEAF0,stroke:#993556
-    style I fill:#FAECE7,stroke:#993C1D
-    style J fill:#FAECE7,stroke:#993C1D
-```
-
-**Legend**: purple = Strands agent step · coral = external automation/service
-(Telegram, GitHub Actions) · pink = human step · gray = trigger/storage.
-
-## What it actually does
-
-- **Researches** hiring trends and tooling trends in parallel, via two
-  specialized Strands sub-agents delegated to by an orchestrator.
-- **Remembers** what it already reported — a dedupe memory layer means a
-  weekly run surfaces only what's new, not the same items re-summarized.
-- **Classifies** every finding by signal strength — "strong" if corroborated
-  across multiple sources, "early" if from just one — so it's clear what to
-  teach confidently versus what to just watch.
-- **Drafts content directly**: a ready-to-edit LinkedIn post from the
-  strongest finding, and 1–3 training-module ideas with learning objectives
-  and key points.
-- **Keeps a human in control of publishing**: the digest reaches the
-  trainer automatically and privately every week. Nothing reaches a
-  student-facing channel without a separate, manually-triggered action.
-
-## Strands features used — and why each one is there
-
-Every one of these exists because a real bug or design need surfaced it
-during development, not as a checklist:
-
-| Feature | Why it's here |
-|---|---|
-| **Multi-agent orchestration** (Agent-as-Tool) | Delegation to specialized sub-agents, each with a narrow scope, instead of one agent doing everything |
-| **Steering** (`vended_plugins.steering`) | A real per-tool call budget with feedback the model can act on — replaced a hard-cutoff workaround after a sub-agent got stuck looping on a tool that couldn't do what it was trying to do |
-| **Structured output** (Pydantic) | The digest is a typed schema, not prose the model is asked to format |
-| **A separate tool-less formatter agent** | `structured_output()` internally disallows further tool calls — an agent that still has tools attached can try to use them anyway, which some model backends reject outright. A dedicated tool-less agent makes that failure structurally impossible |
-| **`ModelRetryStrategy`** | Real throttling protection, restored after being accidentally misconfigured while chasing an unrelated (tool-execution, not throttling) bug |
-| **Native observability** (`StrandsTelemetry`) | OpenTelemetry traces of every model and tool call, used throughout development to actually see the tool-call loop and delegation decisions |
-
-## Tech stack
-
-- **Strands Agents SDK** (Python) — orchestration, sub-agents, steering, structured output, telemetry
-- **Groq** (via Strands' OpenAI-compatible interface) — model provider for this submission; AWS Bedrock also supported via one env var
-- **GitHub Actions** — free scheduled + manual triggers, no server to run or maintain
-- **Telegram Bot API** — push-only notifications, no webhook or persistent process needed
-- **DuckDuckGo search, GitHub Search API, RSS feeds** — the underlying research tools
-
-## Setup
-
-```bash
-cp .env.example .env   # fill in GROQ_API_KEY at minimum
+  <section>
+    <h2>Setup</h2>
+    <pre class="codeblock"><code>cp .env.example .env   # fill in GROQ_API_KEY at minimum
 pip install -r requirements_hackathon.txt
-python hackathon_agent.py
-```
+python hackathon_agent.py</code></pre>
+    <p style="font-size:13.5px;color:var(--text-muted);margin-top:14px;">For the scheduled + Telegram + approval-gated publish flow, see <code class="mono">.env.example</code> and the two workflows under <code class="mono">.github/workflows/</code> in the repo.</p>
+  </section>
 
-For the scheduled + Telegram + approval-gated publish flow, see
-`.env.example` and the two workflows under `.github/workflows/`.
+  <section>
+    <div class="callout">
+      <span class="callout-label">More on this project</span>
+      <p>Built on the <a href="https://strandsagents.com" target="_blank" rel="noopener">Strands Agents SDK</a> for a hackathon submission. Watch the <a href="https://youtu.be/8uAp2hFxO6g" target="_blank" rel="noopener">3-minute demo</a>, or see the full source and workflows in the <a href="https://github.com/sharadha-ai/researchAssistantHackathon/" target="_blank" rel="noopener">GitHub repo</a> (MIT licensed).</p>
+    </div>
+  </section>
 
-## License
+  <footer>
+    Case study · Research Assistant — Agentic Market &amp; Content Analyst
+  </footer>
 
-MIT — see [LICENSE](./LICENSE).
-Refer - https://github.com/sharadha-ai/researchAssistantHackathon/
+</div>
+</body>
+</html>
