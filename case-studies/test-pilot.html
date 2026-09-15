@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Pilot — Case Study</title>
+<meta name="description" content="Test Pilot: an AI-assisted, shift-left BDD test generation and automation toolkit built at Chargebee.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F7FC;
+    --bg-elev: #FFFFFF;
+    --text: #1D1B2E;
+    --text-muted: #625E78;
+    --border: #E3E1EE;
+    --border-strong: #C9C5DE;
+    --accent: #5147C4;
+    --accent-strong: #443AAE;
+    --accent-soft: #ECEAFA;
+    --human: #B5761E;
+    --human-soft: #FAF0DF;
+    --shadow: 0 1px 2px rgba(30, 25, 60, 0.05), 0 8px 24px rgba(30, 25, 60, 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14121F;
+      --bg-elev: #1B1830;
+      --text: #ECEAF6;
+      --text-muted: #A29DC2;
+      --border: #2C2846;
+      --border-strong: #423A66;
+      --accent: #9B93FF;
+      --accent-strong: #B4AEFF;
+      --accent-soft: #241F42;
+      --human: #E8B85F;
+      --human-soft: #2E2718;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px rgba(0,0,0,0.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 56px 20px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 58ch;
+    margin: 0 0 28px;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    padding: 18px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .meta-item { font-size: 13px; }
+  .meta-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+  .meta-value { font-weight: 500; }
+
+  section { margin-bottom: 52px; }
+  h2 {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--border);
+  }
+  p { margin: 0 0 14px; }
+  .lede { font-size: 16.5px; }
+
+  .pipeline { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .pipeline li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pipeline li:last-child { border-bottom: none; }
+  .pipeline li.human .step-num { background: var(--human-soft); color: var(--human); }
+  .step-num {
+    counter-increment: step;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .step-num::before { content: counter(step); }
+  .step-title { font-weight: 600; margin: 0 0 4px; font-size: 15.5px; display: flex; align-items: center; gap: 8px; }
+  .step-body { color: var(--text-muted); font-size: 14.5px; margin: 0; }
+  .human-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--human);
+    background: var(--human-soft);
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+
+  .diagram-bleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0 20px;
+  }
+  .diagram-inner { max-width: 1280px; margin: 0 auto; }
+  figure.diagram {
+    margin: 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+  .diagram-scroll { overflow-x: auto; }
+  .diagram-scroll svg { display: block; min-width: 980px; width: 100%; height: auto; }
+  .diagram-hint {
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0 0 12px;
+  }
+  @media (max-width: 900px) {
+    .diagram-hint { display: block; }
+  }
+  figcaption {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-top: 14px;
+    margin-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .box-label { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 12.5px; fill: var(--text); }
+  .box-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: var(--text-muted); }
+  .lane-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; fill: var(--text-muted); text-transform: uppercase; }
+  .node-rect { fill: var(--bg-elev); stroke: var(--border-strong); stroke-width: 1.4; }
+  .node-rect.accented { stroke: var(--accent); }
+  .node-rect.checkpoint { stroke: var(--human); stroke-dasharray: 4 3; }
+  .flow-line { fill: none; stroke: var(--border-strong); stroke-width: 1.6; }
+  .flow-line.loop { stroke: var(--human); stroke-dasharray: 4 3; }
+  .icon-stroke { fill: none; stroke: var(--accent-strong); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-fill { fill: var(--accent-strong); }
+  .icon-stroke.human { stroke: var(--human); }
+  .icon-fill.human { fill: var(--human); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .stat-tile {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px;
+  }
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .callout p { margin: 0; font-size: 14.5px; color: var(--text); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--text-muted);
+  }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 14px; height: 14px; border-radius: 4px; border: 1.4px solid var(--border-strong); flex-shrink: 0; }
+  .legend-swatch.checkpoint { border-color: var(--human); border-style: dashed; }
+
+  footer {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  a { color: var(--accent-strong); }
+
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: 1fr; }
+    body { padding: 40px 16px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="eyebrow">Case Study · AI-Assisted Testing</p>
+  <h1>Test Pilot</h1>
+  <p class="subtitle">A shift-left testing toolkit that turns requirements straight into reviewed, automatable test cases — with a human checkpoint at every step that matters.</p>
+
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Architect &amp; Lead Engineer</span></div>
+    <div class="meta-item"><span class="meta-label">Context</span><span class="meta-value">Staff SDET, Chargebee</span></div>
+    <div class="meta-item"><span class="meta-label">Approach</span><span class="meta-value">Shift-left, human-in-the-loop</span></div>
+    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">~60% shorter QA cycle</span></div>
+  </div>
+
+  <section>
+    <h2>The problem</h2>
+    <p class="lede">Traditional QA starts once requirements are "done": someone reads them, writes test cases by hand, and writes automation for each one later, usually in a separate pass.</p>
+    <p>Every handoff between those stages adds delay, and test coverage quietly drifts away from what was actually specified — by the time automation exists, the requirement has often already changed again.</p>
+  </section>
+
+  <section>
+    <h2>Architecture &amp; flow</h2>
+    <div class="diagram-bleed"><div class="diagram-inner">
+    <figure class="diagram">
+      <p class="diagram-hint">↔ swipe to see the full diagram</p>
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 1400 460" role="img" aria-label="Flow diagram: Requirements feed an AI BDD generator, which produces test cases validated by a human. Approved cases are split into reusable steps, added to a step library, and new steps, which a human reviews and approves before automation code is generated. That generated code loops back into the step library.">
+          <defs>
+            <marker id="arrow-tp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--border-strong)"></path>
+            </marker>
+            <marker id="arrow-tp-loop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--human)"></path>
+            </marker>
+
+            <!-- Icon: document / requirements -->
+            <g id="icon-doc">
+              <rect x="3" y="1.5" width="14" height="17" rx="1.5" class="icon-stroke"></rect>
+              <line x1="6" y1="6" x2="14" y2="6" class="icon-stroke"></line>
+              <line x1="6" y1="9.5" x2="14" y2="9.5" class="icon-stroke"></line>
+              <line x1="6" y1="13" x2="11" y2="13" class="icon-stroke"></line>
+            </g>
+            <!-- Icon: spark / AI -->
+            <g id="icon-ai">
+              <path d="M10,1 L12,8 L19,10 L12,12 L10,19 L8,12 L1,10 L8,8 Z" class="icon-fill"></path>
+            </g>
+            <!-- Icon: human check (checkpoint) -->
+            <g id="icon-human-check">
+              <circle cx="10" cy="6.5" r="3.5" class="icon-stroke human"></circle>
+              <path d="M3.5,18 C3.5,13.5 6.4,11.5 10,11.5 C13.6,11.5 16.5,13.5 16.5,18" class="icon-stroke human"></path>
+              <path d="M14.5,16.5 L16.5,18.5 L20,14.5" class="icon-stroke human"></path>
+            </g>
+            <!-- Icon: split / classify -->
+            <g id="icon-split">
+              <path d="M2,10 H8" class="icon-stroke"></path>
+              <path d="M8,10 L15,4" class="icon-stroke"></path>
+              <path d="M8,10 L15,16" class="icon-stroke"></path>
+              <circle cx="17" cy="4" r="2" class="icon-stroke"></circle>
+              <circle cx="17" cy="16" r="2" class="icon-stroke"></circle>
+            </g>
+            <!-- Icon: library / layers -->
+            <g id="icon-library">
+              <polygon points="10,1.5 19,6 10,10.5 1,6" class="icon-stroke"></polygon>
+              <polyline points="1,10.5 10,15 19,10.5" class="icon-stroke"></polyline>
+              <polyline points="1,15 10,19.5 19,15" class="icon-stroke"></polyline>
+            </g>
+            <!-- Icon: flag -->
+            <g id="icon-flag">
+              <line x1="4" y1="1.5" x2="4" y2="19" class="icon-stroke"></line>
+              <path d="M4,3 C7,1.5 9,4.5 12,3 C14,2 16,2.5 17,3.5 L17,11 C15,9.5 13,9 11,10 C8.5,11.5 6.5,9 4,10.5 Z" class="icon-stroke"></path>
+            </g>
+            <!-- Icon: code -->
+            <g id="icon-code">
+              <polyline points="7,4 2,10 7,16" class="icon-stroke"></polyline>
+              <polyline points="13,4 18,10 13,16" class="icon-stroke"></polyline>
+            </g>
+          </defs>
+
+          <!-- lane labels -->
+          <text x="280" y="30" text-anchor="middle" class="lane-label">generate</text>
+          <text x="900" y="30" text-anchor="middle" class="lane-label">reuse</text>
+          <text x="1115" y="30" text-anchor="middle" class="lane-label">new automation</text>
+
+          <!-- connectors: requirements -> generator -> validate -> classifier -->
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M150,230 H196"></path>
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M360,230 H406"></path>
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M560,230 H606"></path>
+
+          <!-- fan-out: classifier -> reusable / new -->
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M760,230 H790 V122 H816"></path>
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M760,230 H790 V368 H816"></path>
+
+          <!-- reusable -> step library -->
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M980,122 H1026"></path>
+
+          <!-- new steps -> hitl review -->
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M980,368 H1026"></path>
+
+          <!-- hitl review -> generate code -->
+          <path class="flow-line" marker-end="url(#arrow-tp)" d="M1200,368 H1216"></path>
+
+          <!-- loop back: generate code -> step library -->
+          <path class="flow-line loop" marker-end="url(#arrow-tp-loop)" d="M1300,333 C1300,250 1200,160 1130,146"></path>
+
+          <!-- Requirements -->
+          <rect class="node-rect" x="10" y="195" width="140" height="70" rx="10"></rect>
+          <use href="#icon-doc" x="20" y="205" width="20" height="20"></use>
+          <text x="80" y="242" text-anchor="middle" class="box-label">Requirements</text>
+          <text x="80" y="256" text-anchor="middle" class="box-sub">input document</text>
+
+          <!-- AI BDD Generator -->
+          <rect class="node-rect accented" x="200" y="195" width="160" height="70" rx="10"></rect>
+          <use href="#icon-ai" x="212" y="205" width="20" height="20"></use>
+          <text x="280" y="242" text-anchor="middle" class="box-label">AI BDD Generator</text>
+          <text x="280" y="256" text-anchor="middle" class="box-sub">Given / When / Then</text>
+
+          <!-- HITL Validate -->
+          <rect class="node-rect checkpoint" x="410" y="195" width="150" height="70" rx="10"></rect>
+          <use href="#icon-human-check" x="422" y="205" width="20" height="20"></use>
+          <text x="485" y="242" text-anchor="middle" class="box-label">Human Validates</text>
+          <text x="485" y="256" text-anchor="middle" class="box-sub">checkpoint 1</text>
+
+          <!-- Step Classifier -->
+          <rect class="node-rect" x="610" y="195" width="150" height="70" rx="10"></rect>
+          <use href="#icon-split" x="622" y="205" width="20" height="20"></use>
+          <text x="685" y="242" text-anchor="middle" class="box-label">Step Classifier</text>
+          <text x="685" y="256" text-anchor="middle" class="box-sub">reusable vs. new</text>
+
+          <!-- Reusable Steps -->
+          <rect class="node-rect" x="820" y="90" width="160" height="64" rx="10"></rect>
+          <use href="#icon-library" x="832" y="99" width="20" height="20"></use>
+          <text x="900" y="132" text-anchor="middle" class="box-label">Reusable Steps</text>
+          <text x="900" y="145" text-anchor="middle" class="box-sub">already automated</text>
+
+          <!-- Step Library -->
+          <rect class="node-rect accented" x="1030" y="90" width="160" height="64" rx="10"></rect>
+          <use href="#icon-library" x="1042" y="99" width="20" height="20"></use>
+          <text x="1110" y="132" text-anchor="middle" class="box-label">Step Library</text>
+          <text x="1110" y="145" text-anchor="middle" class="box-sub">grows every run</text>
+
+          <!-- New Steps Flagged -->
+          <rect class="node-rect" x="820" y="336" width="160" height="64" rx="10"></rect>
+          <use href="#icon-flag" x="832" y="345" width="20" height="20"></use>
+          <text x="900" y="378" text-anchor="middle" class="box-label">New Steps Flagged</text>
+          <text x="900" y="391" text-anchor="middle" class="box-sub">not yet automated</text>
+
+          <!-- HITL Review & Approve -->
+          <rect class="node-rect checkpoint" x="1030" y="333" width="170" height="70" rx="10"></rect>
+          <use href="#icon-human-check" x="1042" y="343" width="20" height="20"></use>
+          <text x="1115" y="380" text-anchor="middle" class="box-label">Human Approves</text>
+          <text x="1115" y="393" text-anchor="middle" class="box-sub">checkpoint 2</text>
+
+          <!-- Generate Code -->
+          <rect class="node-rect accented" x="1220" y="333" width="160" height="70" rx="10"></rect>
+          <use href="#icon-code" x="1232" y="343" width="20" height="20"></use>
+          <text x="1300" y="380" text-anchor="middle" class="box-label">Generate Code</text>
+          <text x="1300" y="393" text-anchor="middle" class="box-sub">new automation</text>
+        </svg>
+      </div>
+      <figcaption>Requirements flow through an AI-generated BDD draft, a human validation gate, and a step classifier. Reusable steps rejoin the library immediately; new steps go through a second human approval before Test Pilot generates their automation code — which then grows the same library.</figcaption>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-swatch checkpoint"></span> Human-in-the-loop checkpoint</div>
+        <div class="legend-item"><span class="legend-swatch" style="border-color: var(--human); background: none;"></span> Feedback loop into step library</div>
+      </div>
+    </figure>
+    </div></div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ol class="pipeline">
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Reads the requirements</p>
+          <p class="step-body">Takes requirement documents as input as soon as they're ready — before a single manual test case gets written.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Generates BDD test cases</p>
+          <p class="step-body">An AI model drafts Given/When/Then test cases directly from the requirement text.</p>
+        </div>
+      </li>
+      <li class="human">
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Human validates the cases <span class="human-pill">HITL</span></p>
+          <p class="step-body">A reviewer checks the generated BDD cases for correctness and completeness before anything downstream happens.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Sorts automation steps</p>
+          <p class="step-body">Once validated, Test Pilot scans each case's steps: steps that already exist in the automation step library are marked reusable, and steps that don't are flagged as new.</p>
+        </div>
+      </li>
+      <li class="human">
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Human reviews new steps <span class="human-pill">HITL</span></p>
+          <p class="step-body">A reviewer approves — or corrects — the newly flagged steps before any code gets generated for them.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num"></span>
+        <div>
+          <p class="step-title">Generates automation code</p>
+          <p class="step-body">On approval, Test Pilot generates the automation code for the new steps and adds them back into the reusable step library for next time.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Impact</h2>
+    <div class="stats">
+      <div class="stat-tile">
+        <span class="stat-num">~60%</span>
+        <span class="stat-label">Reduction in QA cycle time</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Human checkpoints kept in the loop by design</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-num">Compounding</span>
+        <span class="stat-label">Step library grows automatically with every new requirement</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Approach &amp; tools</h2>
+    <div class="tags">
+      <span class="tag">BDD</span>
+      <span class="tag">Generative AI</span>
+      <span class="tag">Human-in-the-loop</span>
+      <span class="tag">Test Automation</span>
+      <span class="tag">Shift-left Testing</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="callout">
+      <span class="callout-label">A note on code</span>
+      <p>Test Pilot was built as proprietary tooling for Chargebee. This case study describes the architecture, the workflow, and my role designing it end-to-end — the implementation itself isn't something I'm able to share.</p>
+    </div>
+  </section>
+
+  <footer>
+    Case study · Test Pilot — AI-assisted, shift-left BDD test generation &amp; automation
+  </footer>
+
+</div>
+</body>
+</html>
