@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rama Rajeswari Ramachandran — QA Architect &amp; Agentic AI Leader</title>
+<meta name="description" content="Rama Rajeswari Ramachandran — 18+ years in Quality Engineering &amp; leadership, now architecting evaluation and testing frameworks for agentic AI systems." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Matched to sharadhaai.com's Oxford Navy & Azure editorial system */
+    --bg:#F4EFE6;
+    --bg-alt:#E9E4D9;
+    --card:#FFFFFF;
+    --card-gradient:linear-gradient(180deg, #FFFFFF 0%, #E9E4D9 100%);
+    --text:#0E1E38;
+    --text-muted:#64748B;
+    --border:#D5D0C5;
+    --accent:#0284C7;
+    --accent-dark:#0369A1;
+    --accent-soft:rgba(2,132,199,.08);
+    --accent-border:rgba(2,132,199,.24);
+    --emerald:#059669;
+    --emerald-soft:rgba(5,150,105,.08);
+    --radius:10px;
+    --radius-sm:6px;
+    --maxw:1120px;
+    --shadow:0 8px 24px rgba(14,30,56,.06), 0 2px 6px rgba(14,30,56,.03);
+    --font-display:'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-serif:'Newsreader', Georgia, serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-muted);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,h5,h6,.brand,.tl-role,.card-title-like{
+    font-family:var(--font-display);
+    color:var(--text);
+    letter-spacing:-.025em;
+  }
+  img{max-width:100%;display:block;}
+  [hidden]{display:none!important;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:24px;}
+
+  /* NAV */
+  header.site{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding-block:14px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:.1px;text-decoration:none;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none;}
+  nav.links{display:flex;gap:28px;align-items:center;}
+  nav.links a{font-size:14.5px;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .15s;}
+  nav.links a:hover{color:var(--accent);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 20px;border-radius:var(--radius-sm);
+    font-family:var(--font-display);
+    font-weight:600;font-size:14.5px;text-decoration:none;
+    border:1px solid transparent;transition:transform .15s, box-shadow .15s, background .15s;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(2,132,199,.25);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-ghost{background:var(--card);color:var(--text);border-color:var(--border);}
+  .btn-ghost:hover{background:var(--text);color:#fff;border-color:var(--text);}
+  .navcta{display:none;}
+  @media(min-width:720px){.navcta{display:inline-flex;}}
+  .menu-toggle{display:inline-flex;background:none;border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-size:14px;color:var(--text);}
+  @media(min-width:720px){.menu-toggle{display:none;}}
+  nav.links{display:none;}
+  @media(min-width:720px){nav.links{display:flex;}}
+  #mobileMenu{border-top:1px solid var(--border);padding:14px 0 18px;display:flex;flex-direction:column;gap:14px;}
+  #mobileMenu a{text-decoration:none;color:var(--text);font-weight:500;font-size:15px;}
+
+  /* HERO */
+  section.hero{padding-block:76px 64px;background:radial-gradient(1200px 420px at 50% -180px, var(--accent-soft), transparent 70%);}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--accent-soft);color:var(--accent);
+    border:1px solid var(--accent-border);
+    font-family:var(--font-mono);
+    padding:4px 10px;border-radius:var(--radius-sm);
+    font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:22px;
+  }
+  h1.headline{
+    font-family:var(--font-display);
+    font-size:clamp(32px,5.4vw,50px);
+    line-height:1.12;
+    letter-spacing:-.03em;
+    margin:0 0 20px;
+    max-width:19ch;
+    font-weight:800;
+  }
+  h1.headline .accent{
+    font-family:var(--font-serif);
+    font-style:italic;
+    font-weight:500;
+    color:var(--accent);
+    letter-spacing:normal;
+  }
+  p.sub{font-size:clamp(16px,2vw,19px);color:var(--text-muted);max-width:58ch;margin:0 0 32px;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px;}
+  .hero-stats{display:grid;grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));gap:18px;max-width:720px;border-top:1px solid var(--border);padding-top:28px;}
+  .stat b{display:block;font-size:26px;font-weight:800;color:var(--accent-dark);}
+  .stat span{font-size:13px;color:var(--text-muted);}
+
+  /* SECTION shared */
+  section{padding-block:68px;}
+  section.alt{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .kicker{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  h2.h2{font-family:var(--font-display);font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.025em;margin:0 0 14px;}
+  p.lede{color:var(--text-muted);max-width:64ch;font-size:16.5px;margin:0 0 40px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;}
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
+  .about-copy p{color:var(--text-muted);font-size:16px;margin:0 0 16px;}
+  .about-copy p.muted{color:var(--text-muted);}
+  .cred-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .cred-list li{display:flex;gap:12px;align-items:flex-start;background:var(--card-gradient);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
+  .cred-list b{display:block;font-size:14.5px;color:var(--text);}
+  .cred-list span{font-size:13.5px;color:var(--text-muted);}
+  .badge-ic{flex:none;width:34px;height:34px;border-radius:var(--radius-sm);background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:12px;}
+
+  /* TIMELINE */
+  .timeline{border-left:2px solid var(--border);margin-left:6px;padding-left:28px;display:flex;flex-direction:column;gap:36px;}
+  .tl-item{position:relative;}
+  .tl-item::before{content:"";position:absolute;left:-34.5px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent);}
+  .tl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .tl-role{font-weight:700;font-size:17px;}
+  .tl-org{font-family:var(--font-mono);color:var(--accent);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em;}
+  .tl-date{margin-left:auto;font-size:13px;color:var(--text-muted);font-weight:600;}
+  .tl-desc{color:var(--text-muted);font-size:15px;max-width:70ch;}
+  .tl-desc b{color:var(--text);font-weight:600;}
+
+  /* PROJECT CARDS */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:22px;}
+  .project-card{background:var(--card-gradient);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:var(--radius-sm);padding:24px;display:flex;flex-direction:column;gap:14px;transition:transform .15s, box-shadow .15s, background .15s;}
+  .project-card:hover{background:var(--card);box-shadow:var(--shadow);border-color:var(--text);}
+  .project-tag{display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:4px 10px;border-radius:var(--radius-sm);width:fit-content;}
+  .project-card h3{margin:0;font-size:18px;}
+  .project-card p{margin:0;color:var(--text-muted);font-size:14.5px;flex:1;}
+  .project-metric{font-family:var(--font-mono);font-weight:700;color:var(--accent);font-size:13px;}
+  .project-links{display:flex;gap:14px;margin-top:auto;padding-top:14px;border-top:1px solid var(--border);}
+  .project-links a{font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;}
+  .project-links a:hover{text-decoration:underline;}
+
+  /* SKILLS */
+  .skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:920px){.skill-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.skill-grid{grid-template-columns:1fr;}}
+  .skill-card{background:var(--card-gradient);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:var(--radius-sm);padding:20px;transition:background .15s, box-shadow .15s;}
+  .skill-card:hover{background:var(--card);box-shadow:var(--shadow);}
+  .skill-card h4{margin:0 0 10px;font-size:14.5px;font-family:var(--font-display);color:var(--text);}
+  .skill-card ul{margin:0;padding-left:18px;color:var(--text-muted);font-size:13.8px;display:flex;flex-direction:column;gap:5px;}
+
+  /* TOOLS */
+  .tool-group{margin-bottom:26px;}
+  .tool-group:last-child{margin-bottom:0;}
+  .tool-cat{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+  .tool-row{display:flex;flex-wrap:wrap;gap:8px;}
+
+  /* VENTURE */
+  .venture{
+    display:flex;align-items:center;gap:28px;
+    background:var(--card-gradient);
+    border:1px solid var(--border);border-top:3px solid var(--emerald);border-radius:var(--radius);padding:32px;
+  }
+  @media(max-width:720px){.venture{flex-direction:column;align-items:flex-start;}}
+  .venture img{width:64px;height:64px;object-fit:contain;border-radius:12px;background:#fff;padding:6px;border:1px solid var(--border);flex:none;}
+  .venture-copy{flex:1;}
+  .venture-copy h3{margin:0 0 6px;font-size:19px;}
+  .venture-copy p{margin:0;color:var(--text-muted);font-size:14.8px;max-width:60ch;}
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--card-gradient);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:var(--radius);
+    padding:44px;text-align:center;
+  }
+  .contact-box h2{margin:0 0 10px;}
+  .contact-box p{color:var(--text-muted);margin:0 0 28px;}
+  .contact-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  footer{padding-block:32px;border-top:1px solid var(--border);}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13.5px;color:var(--text-muted);}
+  footer a{text-decoration:none;color:var(--text-muted);}
+  footer a:hover{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="dot"></span>Rama Rajeswari Ramachandran</a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#tools">Tools</a>
+      <a href="#venture">Venture</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary navcta" href="#contact">Get in touch</a>
+    <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+  </div>
+  <div class="wrap" id="mobileMenu" hidden>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#tools">Tools</a>
+    <a href="#venture">Venture</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">AI Evaluation Architect · Agentic QA &amp; Reliability Leader</span>
+      <h1 class="headline">Shift-left quality leadership, <span class="accent">now architecting for agentic AI.</span></h1>
+      <p class="sub">18+ years designing scalable test architectures and leading QA teams across enterprise SaaS and cloud — now driving AI-first quality initiatives, LLM evaluation, and agentic QA for production systems.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#projects">View my work</a>
+        <a class="btn btn-ghost" href="#contact">Contact me</a>
+        <a class="btn btn-ghost" href="resume.pdf">Download résumé</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>18+ yrs</b><span>Quality engineering</span></div>
+        <div class="stat"><b>60%</b><span>QA cycle time cut — Test Pilot</span></div>
+        <div class="stat"><b>3d→1h</b><span>Perf test time — ATPAR</span></div>
+        <div class="stat"><b>10</b><span>Member perf team built &amp; led</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="about">
+    <div class="wrap">
+      <p class="kicker">About</p>
+      <h2 class="h2">From shift-left automation to agentic AI architecture</h2>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I'm an AI Evaluation Architect and Agentic QA &amp; Reliability leader with 18+ years designing scalable test architectures, driving AI-first quality initiatives, and leading QA teams across enterprise SaaS and cloud environments — spanning Oracle, Cisco (AppDynamics), Liberty Wireless Technologies, and Chargebee.</p>
+          <p>My hands-on practice runs from functional test automation framework design and test-early / shift-left strategy to one-click performance benchmarking and building Quality Centers of Excellence. Most recently at Chargebee, I built and led a 10-member performance test team from scratch and led that discipline into agentic AI — architecting <b>Test Pilot</b> (60% faster QA cycles) and <b>ATPAR</b> (performance testing cut from ~3 days to 1 hour). Over the last year I've extended this further into LLM and agent evaluation, and I teach it hands-on at <a href="https://sharadhaai.com" target="_blank" rel="noopener">SharadhaAI</a>, the Agentic AI training program I run alongside my own projects.</p>
+          <p class="muted">Based in India. Open to Staff Engineer / QA Architect / Engineering Leadership roles in Agentic AI Evaluation &amp; Quality, and to AI evaluation &amp; governance consulting.</p>
+        </div>
+        <ul class="cred-list">
+          <li><span class="badge-ic">B.E.</span><div><b>Electrical &amp; Electronics Engineering</b><span>Bharathiar University</span></div></li>
+          <li><span class="badge-ic">AI</span><div><b>PG Certificate, AI &amp; ML</b><span>IIT Guwahati</span></div></li>
+          <li><span class="badge-ic">✓</span><div><b>ISTQB — CTFL / CSTE Certified</b><span>Software testing certification</span></div></li>
+          <li><span class="badge-ic">🏆</span><div><b>Devpost Hackathon — Agents for Humans</b><span>AWS Strands Agents SDK, 2026</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <p class="kicker">Experience</p>
+      <h2 class="h2">Where I've built quality systems</h2>
+      <p class="lede">Four roles, one thread: shift-left test strategy, automation frameworks built from the ground up, and team leadership at scale — now extended to AI-native systems.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-head"><span class="tl-role">Staff SDET / Architect</span><span class="tl-org">Chargebee</span><span class="tl-date">2022 – 2026</span></div>
+          <p class="tl-desc">Built and led a <b>10-member</b> Performance Test team from scratch — tool selection, shift-left CI/CD integration, and execution. Set up release gating for microservices and API performance benchmarking, and designed &amp; rolled out an LLM-integrated testing platform. Architected <b>Test Pilot</b> (agentic requirement analysis, BDD test-case &amp; automation code generation — <b>60%</b> faster QA cycles) and <b>ATPAR</b> (performance testing cut from <b>~3 days to 1 hour</b>). Partnered with Cloud Infra, SRE, GTM, and pre-sales on production RCAs and engineering excellence initiatives.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-head"><span class="tl-role">Leader, Software Engineering</span><span class="tl-org">AppDynamics (Cisco)</span><span class="tl-date">2020 – 2021</span></div>
+          <p class="tl-desc">Led automation across <b>5 products</b> with independent release cycles, owning test automation frameworks end-to-end. Designed and implemented full-cycle E2E automation from scratch, cutting release time from several hours to <b>under 60 minutes</b>. Built Python integration test apps and test harnesses on AWS EC2 and Kubernetes (EKS).</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-head"><span class="tl-role">Lead Automation Engineer</span><span class="tl-org">Liberty Wireless Technologies</span><span class="tl-date">2019 – 2020</span></div>
+          <p class="tl-desc">Led QE from requirement analysis through automated pipeline delivery and production support for a microservices architecture. Achieved build stability and functional integrity by identifying and automating P0 (BVT) tests.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-head"><span class="tl-role">Senior Member of Technical Staff</span><span class="tl-org">Oracle</span><span class="tl-date">2007 – 2019</span></div>
+          <p class="tl-desc">Created and maintained the API functional test framework for Oracle's public cloud IaaS offering (OCI-C) using Java. Built the end-to-end BDD automation framework for the CGBU-BRM product using Java, Cucumber, and Selenium WebDriver — advocating test-early, shift-left testing, and establishing the org's Quality Center of Excellence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="projects">
+    <div class="wrap">
+      <p class="kicker">Projects</p>
+      <h2 class="h2">Flagship work &amp; hands-on builds</h2>
+      <p class="lede">Frameworks built in production, plus independent projects built since exploring agentic AI full-time.</p>
+      <div class="card-grid">
+        <div class="project-card">
+          <span class="project-tag">Agentic AI · Production</span>
+          <h3>Test Pilot</h3>
+          <p>An agentic AI toolkit that automates requirement analysis, BDD test-case generation, and automation code generation end-to-end — in production use at Chargebee.</p>
+          <span class="project-metric">↓ 60% QA cycle time</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai/ProjectCaseStudies/blob/main/TestPilot.md" target="_blank" rel="noopener">Case study →</a></div>
+        </div>
+        <div class="project-card">
+          <span class="project-tag">Performance · Production</span>
+          <h3>ATPAR</h3>
+          <p>A one-click performance test automation framework (JMeter + GitHub + JTL reporter) for continuous performance monitoring, built to make load testing a routine part of every release.</p>
+          <span class="project-metric">3 days → 1 hour</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai/ProjectCaseStudies/blob/main/ATPAR.md" target="_blank" rel="noopener">Case study →</a></div>
+        </div>
+        <div class="project-card">
+          <div class="tool-row" style="margin-bottom:0;">
+            <span class="project-tag">Independent · Agentic AI</span>
+            <span class="project-tag">🏆 Devpost Hackathon</span>
+          </div>
+          <h3>Agentic Market Analyst</h3>
+          <p>A multi-agent orchestrator (AWS Strands SDK + Groq, agent-as-tool pattern) for job-market &amp; tooling-trend research. Caught a grounding/hallucination failure mode with an LLM-as-judge evaluation approach, then hardened it (rate limiting, prompt caching, structured output, steering) for Devpost's Agents for Humans hackathon.</p>
+          <span class="project-metric">Strands SDK + Groq</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai/ProjectCaseStudies/blob/main/ResearchAssistant.md" target="_blank" rel="noopener">Case study →</a></div>
+        </div>
+        <div class="project-card">
+          <span class="project-tag">Architecture · Agentic QA</span>
+          <h3>Enterprise Agentic QA</h3>
+          <p>A four-layer enterprise architecture for Agentic QA — a leadership-level blueprint for how organizations structure test strategy, agent evaluation, governance, and platform tooling as they adopt agentic AI.</p>
+          <span class="project-metric">4-layer architecture</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai/ProjectCaseStudies/blob/main/EnterpriseAgenticQA.md" target="_blank" rel="noopener">Case study →</a></div>
+        </div>
+        <div class="project-card">
+          <span class="project-tag">Evaluation Framework · Agentic QA</span>
+          <h3>Enterprise Agentic Evaluation Platform</h3>
+          <p>An enterprise-scale evaluation framework for agentic AI systems — deterministic and probabilistic testing, prompt-as-code versioning, security (OWASP LLM Top 10), and performance/chaos testing, unified in a single QA dashboard.</p>
+          <span class="project-metric">11-phase framework</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai/ProjectCaseStudies/blob/main/EnterpriseAgenticEvaluationPlatform.html" target="_blank" rel="noopener">Case study →</a></div>
+        </div>
+        <div class="project-card">
+          <span class="project-tag">Academic · RAG / Healthcare AI</span>
+          <h3>HealthCare RAG Assistant</h3>
+          <p>A RAG-pipeline patient healthcare app, built during the IIT Guwahati AI/ML program, that helps doctors quickly assess a patient's medical history and plan effective treatment.</p>
+          <span class="project-metric">RAG pipeline</span>
+          <div class="project-links"><a href="https://github.com/sharadha-ai" target="_blank" rel="noopener">GitHub →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <p class="kicker">Skills</p>
+      <h2 class="h2">QA architecture, leadership, and Agentic AI</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4>Agentic AI &amp; LLM Evaluation</h4>
+          <ul>
+            <li>LLM output evaluation</li>
+            <li>Prompt engineering &amp; testing</li>
+            <li>Agent testing frameworks</li>
+            <li>RAG evaluation</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Test Automation &amp; Architecture</h4>
+          <ul>
+            <li>Framework design</li>
+            <li>BDD &amp; requirement analysis</li>
+            <li>Shift-left testing strategy</li>
+            <li>CI/CD test integration</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Performance Engineering</h4>
+          <ul>
+            <li>JMeter benchmarking</li>
+            <li>Perf test time: 3 days → 1 hour</li>
+            <li>API test automation (OCI/BRM)</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Leadership &amp; Practice</h4>
+          <ul>
+            <li>Built &amp; led a 10-member QA team</li>
+            <li>Quality Center of Excellence</li>
+            <li>Cross-functional collaboration</li>
+            <li>Technical mentoring &amp; training</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <p class="kicker">Tools &amp; Technologies</p>
+      <h2 class="h2">The stack behind 18 years of QA — and the agentic AI toolkit today</h2>
+      <p class="lede">From classic test automation to the agentic AI stack.</p>
+
+      <div class="tool-group">
+        <div class="tool-cat">Languages</div>
+        <div class="tool-row">
+          <span class="project-tag">Java</span>
+          <span class="project-tag">Python</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-cat">Agentic AI &amp; Evaluation</div>
+        <div class="tool-row">
+          <span class="project-tag">LangChain</span>
+          <span class="project-tag">CrewAI</span>
+          <span class="project-tag">AWS Strands SDK</span>
+          <span class="project-tag">RAG Pipelines</span>
+          <span class="project-tag">Prompt Engineering</span>
+          <span class="project-tag">DeepEval</span>
+          <span class="project-tag">RAGAS</span>
+          <span class="project-tag">Arize</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-cat">Testing</div>
+        <div class="tool-row">
+          <span class="project-tag">Selenium</span>
+          <span class="project-tag">Playwright</span>
+          <span class="project-tag">Cucumber / BDD</span>
+          <span class="project-tag">JMeter</span>
+          <span class="project-tag">API &amp; Regression Testing</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-cat">Tools &amp; DevOps</div>
+        <div class="tool-row">
+          <span class="project-tag">Datadog</span>
+          <span class="project-tag">AppDynamics</span>
+          <span class="project-tag">Splunk</span>
+          <span class="project-tag">ELK</span>
+          <span class="project-tag">Jenkins</span>
+          <span class="project-tag">Git</span>
+          <span class="project-tag">Jira</span>
+          <span class="project-tag">AWS</span>
+          <span class="project-tag">Docker</span>
+          <span class="project-tag">Kubernetes</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-cat">Domain</div>
+        <div class="tool-row">
+          <span class="project-tag">SaaS</span>
+          <span class="project-tag">Revenue &amp; Billing</span>
+          <span class="project-tag">OCI (IaaS)</span>
+          <span class="project-tag">APM / Observability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="venture">
+    <div class="wrap">
+      <p class="kicker">Also teaching</p>
+      <div class="venture">
+        <div class="venture-copy">
+          <h3>Founder, SharadhaAI</h3>
+          <p>I run practical, cohort-based training on production agentic AI systems, RAG architectures, MCP, and AI evaluation frameworks — teaching the same discipline I bring to full-time engineering roles.</p>
+        </div>
+        <a class="btn btn-ghost" href="https://sharadhaai.com" target="_blank" rel="noopener">Visit SharadhaAI →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <h2 class="h2">Let's talk</h2>
+        <p>Open to Staff Engineer, QA Architect, and Engineering Leadership roles in Agentic AI Evaluation &amp; Quality — and to AI evaluation &amp; governance consulting.</p>
+        <div class="contact-row">
+          <a class="btn btn-primary" href="mailto:sendmail2ramaa@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/ramarajeswarir" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/sharadha-ai" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Rama Rajeswari Ramachandran</span>
+    <span><a href="https://sharadhaai.com" target="_blank" rel="noopener">SharadhaAI</a> · <a href="https://github.com/sharadha-ai" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ramarajeswarir" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var btn = document.getElementById('menuBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function(){
+    var isHidden = menu.hasAttribute('hidden');
+    if(isHidden){ menu.removeAttribute('hidden'); btn.setAttribute('aria-expanded','true'); }
+    else{ menu.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); }
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); });
+  });
+</script>
+
+</body>
+</html>
